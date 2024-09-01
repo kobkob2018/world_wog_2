@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  wog_db:
+    image: mysql:8
+    volumes:
+      - wog_mysql_data_1:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: wog_db
+      MYSQL_USER: my_user
+      MYSQL_PASSWORD: my_password
+      MYSQL_ROOT_PASSWORD: my_root_password
+
+  wog_web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./django_wog_world_wrap/wog_world:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - wog_db
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: wog_db
+      MYSQL_ROOT_PASSWORD: new_root_password
+    ports:
+      - "8080:80"
+    depends_on:
+      - wog_db
+
+volumes:
+  wog_mysql_data_1:

@@ -1,0 +1,17 @@
+<form action="{% url 'scores:addScoreToPlayer' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>add score</h1></legend>
+        {% if messages %}
+            {% for message in messages %}
+                <p><strong>{{ message }}</strong></p>
+            {% endfor %}
+        {% endif %}
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        
+        <input type="text" name="score" id="score_input" value="">
+            
+
+    </fieldset>
+    <input type="submit" value="go">
+</form>

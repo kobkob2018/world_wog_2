@@ -1,0 +1,27 @@
+{% extends 'utils/wrap.html' %}
+
+{% block view_title %}
+<h1>
+    Welcome to the world of game
+</h1>
+{% endblock %}
+
+{% block content %}
+<form action="{% url 'intro:loginPlayerPost' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>Select Username</h1></legend>
+        {% if messages %}
+            {% for message in messages %}
+                <p><strong>{{ message }}</strong></p>
+            {% endfor %}
+        {% endif %}
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        
+        <input type="text" name="username" id="user_name_input" value="">
+            
+
+    </fieldset>
+    <input type="submit" value="go">
+</form>
+{% endblock %}

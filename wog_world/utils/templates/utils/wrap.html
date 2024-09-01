@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Site{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'utils/styles.css' %}" />
+    <script type="text/javascript" src="{% static 'scores/scores.js' %}"></script>
+    <script type="text/javascript">
+        const csrfToken = "{{ csrf_token }}"; // CSRF token is available as a JavaScript variable
+        const addScoreUrl = "{% url 'scores:addScoreToPlayer' %}"
+    </script>
+    {% block headsnippets %}
+    {% endblock %}
+</head>
+<body>
+    <header>
+        {% block view_title %}
+        <h1>
+            WOG World ! ! !
+        </h1>
+        {% endblock %}
+        {% if player_info %}
+
+         <h2>Welcome {{ player_info.username }}</h2>
+         <h3>Your score is: {{player_info.score}}</h3>
+         <a href="{% url 'intro:logoutPlayer' %}">Change User</a>
+
+        {% endif %}
+    </header>
+
+    <nav>
+        <!-- Navigation links -->
+    </nav>
+
+    <div class="content">
+        {% block content %}
+        <!-- Content from child templates will go here -->
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>My Site Footer</p>
+    </footer>
+</body>
+</html>

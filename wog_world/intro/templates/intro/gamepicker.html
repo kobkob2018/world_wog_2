@@ -1,0 +1,21 @@
+{% extends 'utils/wrap.html' %}
+
+{% block view_title %}
+<h1>
+    Select One of our amazing games!!!
+</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="Game-cards-wrap">
+
+        {% for game in game_list %}
+            <a href="{% url 'guess_game:play_game' %}">
+
+                <div class="game-card">
+                    {{ game.label }}
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
