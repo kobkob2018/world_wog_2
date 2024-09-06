@@ -1,0 +1,35 @@
+<script type="text/javascript"> 
+    let difficulty = "{{ info.difficulty }}";
+    document.addEventListener('DOMContentLoaded', function(){
+        init_difficulty(); 
+    });
+</script>
+
+<div class="top-gamepicker-link-wrap top-util">
+    <a href = "{% url 'intro:gamepicker' %}" clsss = "top-gamepicker-link">
+        More games
+    </a>
+</div>
+
+<div class="top-difficulty-info top-util" onclick="show_modal('difficulty-selector')" title="Change level">
+    <h4>Level</h4>
+    <p>
+        <span class="difficulty-pholder">{{info.difficulty_label}}</span>
+    </p>
+</div>
+
+
+<div class="modal difficulty-selector hidden">
+    <div class="modal-content">
+      <span class="close" onclick="close_difficulty_modal()">&times;</span>
+      <label for="difficultySelector">Select difficulty:</label>
+      <select id="difficultySelector">
+          <option value="1">Just let me win..</option>
+          <option value="2">Easy</option>
+          <option value="3">Medium</option>
+          <option value="4">Hard</option>
+          <option value="5">Impossible!</option>
+      </select>
+      <button class="ok-btn" onclick="select_difficulty()">OK</button>
+    </div>
+  </div>

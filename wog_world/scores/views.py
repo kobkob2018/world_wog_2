@@ -5,23 +5,23 @@ from utils.utils import is_integer
 
 # Create your views here.
 
-def error_responce(err_message):
+def error_response(err_message):
     return JsonResponse({'success': 'no', 'score': None, 'error':err_message})
 
 def addScoreToPlayer(request):
 
     if not request.method == "POST":
-       return error_responce("No post request")
+       return error_response("No post request")
     
     score = request.POST.get('score')
     if not score:
-       return error_responce("No post request")
+       return error_response("No post request")
     if not is_integer(score):
-        return error_responce("Invalid score")
+        return error_response("Invalid score")
     score = int(score)
     player_id = request.session.get('player_id')
     if not player_id:
-        return error_responce("player not loged in")
+        return error_response("player not loged in")
     player = Player.objects.get(id=player_id)
 
     player_score = player.score

@@ -6,29 +6,51 @@
     <title>{% block title %}My Site{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'utils/styles.css' %}" />
     <script type="text/javascript" src="{% static 'scores/scores.js' %}"></script>
+    <script type="text/javascript" src="{% static 'utils/app.js' %}"></script>
     <script type="text/javascript">
         const csrfToken = "{{ csrf_token }}"; // CSRF token is available as a JavaScript variable
         const addScoreUrl = "{% url 'scores:addScoreToPlayer' %}"
+        const setDifficultyUrl = "{% url 'intro:setDifficulty' %}"
+        const gamePickerUrl = "{% url 'intro:gamepicker' %}"
     </script>
     {% block headsnippets %}
     {% endblock %}
 </head>
 <body>
     <header>
+        <div class="wog-title">
+
+            <h3>Welcome to <i>WOG World 2</i></h3>
+            <p>The second version to the all mighty <i><b>World of game</b></i></p>
+        </div>
+        <div class="top-utils">
+            {% block game_utils %}
+            {% endblock %}
+            {% if player_info %}
+                <div class="top-player-info top-util">
+                    <div class="player-score">
+                        <h4><b>{{ player_info.username }}</b> score is: </h4>
+                        <p><b>{{ player_info.score }}</b></p>
+                    </div>
+                    <div class="player-action">
+                        <a href="{% url 'intro:logoutPlayer' %}">Change User</a>
+                    </div>
+                </div>
+            {% endif %}
+            
+
+            
+            
+        </div>
+    </header>
+    <div class="title-block-view">
+
         {% block view_title %}
         <h1>
             WOG World ! ! !
         </h1>
         {% endblock %}
-        {% if player_info %}
-
-         <h2>Welcome {{ player_info.username }}</h2>
-         <h3>Your score is: {{player_info.score}}</h3>
-         <a href="{% url 'intro:logoutPlayer' %}">Change User</a>
-
-        {% endif %}
-    </header>
-
+    </div>
     <nav>
         <!-- Navigation links -->
     </nav>

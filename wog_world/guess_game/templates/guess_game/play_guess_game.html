@@ -1,0 +1,23 @@
+{% extends 'utils/wrap.html' %}
+{% load static %}
+
+{% block headsnippets %}
+    <script type="text/javascript" src="{% static 'guess_game/guess_game.js' %}"></script>
+{% endblock %}
+
+{% block view_title %}
+<h1>
+    Guess game
+</h1>
+<p>
+    The genius computer will select a number between 1 and {{ info.number_to }} and you have to guess it.
+</p>
+{% endblock %}
+
+{% block game_utils %}
+        {% include "utils/game_utils.html" with info=info %}
+{% endblock %}
+
+{% block content %}
+    <button class="start-game-btn" onclick="start_game()">Start playing</button>
+{% endblock %}

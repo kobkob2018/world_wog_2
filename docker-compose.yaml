@@ -54,3 +54,4 @@ networks:
 
 volumes:
   wog_mysql_data_1:
+    external: true

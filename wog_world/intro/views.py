@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from utils.models import Game, Player
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.contrib import messages
@@ -41,9 +41,20 @@ class IndexView(generic.ListView):
             return redirect(reverse("intro:gamepicker"))
         return render(request, "intro/index.html", {})
 
-@player_only
-def stam(request):
-    return render(request, "intro/testform.html", {})
+def setDifficulty(request):
+    # Get the difficulty from the request
+    difficulty = request.POST.get("difficulty", "").strip()
+
+    if not difficulty:
+        # Add an error message
+        err_message = 'Difficulty is required.'
+        return JsonResponse({'success': 'no', 'error': err_message})
+    request.session['difficulty'] = difficulty
+    # Perform some logic based on the difficulty
+    # ...
+
+    # Return the JSON response with success yes
+    return JsonResponse({'success': 'yes', 'error': None})
 
 def loginPlayerPost(request):
     if request.method == "POST":
@@ -71,4 +82,6 @@ def loginPlayerPost(request):
 def logoutPlayer(request):
     if 'player_id' in request.session:
         del request.session['player_id']
+    if 'difficulty' in request.session:
+        del request.session['difficulty']
     return redirect(reverse('intro:index'))

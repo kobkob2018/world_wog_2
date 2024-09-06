@@ -8,5 +8,5 @@ urlpatterns = [
     path("gamepicker/", views.GamepickerView.as_view(), name="gamepicker"),
     path("login-player-post/", views.loginPlayerPost, name="loginPlayerPost"),
     path("logout-player/", views.logoutPlayer, name="logoutPlayer"),
-    path("stam/", views.stam, name="stam"),
+    path("set-difficulty/", views.setDifficulty, name="setDifficulty"),
 ]
